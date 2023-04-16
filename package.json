@@ -17,6 +17,9 @@
   "dependencies": {
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "mysql": "^2.18.1",
     "nprogress": "^0.2.0",
     "qs": "^6.9.4",
     "t-storage": "^1.1.4",

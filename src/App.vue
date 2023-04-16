@@ -11,68 +11,66 @@
 
 <script>
 import { mapState } from "vuex";
-import tabbar from "@components/nav/tabbar"
+import tabbar from "@components/nav/tabbar";
 export default {
   components: {
-    tabbar
+    tabbar,
   },
-  data(){
+  data() {
     return {
-      transitionName: 'slide-left',
-    }
+      transitionName: "slide-left",
+    };
   },
   computed: {
-    ...mapState(['keepAlive']),
+    ...mapState(["keepAlive"]),
   },
   watch: {
-    $route(to, from){
-      let toDepth = to.meta.depth
-        , fromDepth = from.meta.depth;
+    $route(to, from) {
+      let toDepth = to.meta.depth,
+        fromDepth = from.meta.depth;
       if (toDepth > fromDepth) {
         this.transitionName = "slide-left";
-      }else if (toDepth < fromDepth) {
+      } else if (toDepth < fromDepth) {
         this.transitionName = "slide-right";
-      }else{
-        this.transitionName = "slide-fade"
-        
+      } else {
+        this.transitionName = "slide-fade";
       }
     },
   },
-  methods:{
-    
-  }
-}
+  methods: {},
+};
 </script>
 
 <style lang="scss">
-#app{
+#app {
   position: relative;
 }
 .slide-right-enter-active,
 .slide-right-leave-active,
 .slide-left-enter-active,
 .slide-left-leave-active {
-
- will-change: transform;
- transition: all 0.2s;
- width: 100%;
- position: absolute;
+  will-change: transform;
+  transition: all 0.2s;
+  width: 100%;
+  position: absolute;
 }
 .slide-right-enter {
- opacity: 0;
- transform: translate3d(-100%, 0, 0);
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
 }
 .slide-right-leave-active {
- opacity: 0;
- transform: translate3d(100%, 0, 0);
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
 }
 .slide-left-enter {
- opacity: 0;
- transform: translate3d(100%, 0, 0);
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
 }
 .slide-left-leave-active {
- opacity: 0;
- transform: translate3d(-100%, 0, 0);
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
 }
-
+body {
+  background-color: #f5f3f3;
+}
 </style>

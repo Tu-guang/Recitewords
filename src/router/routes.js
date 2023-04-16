@@ -1,8 +1,10 @@
-import home from '@/views/home/route'
-import about from '@/views/about/route'
-import category from '@/views/category/route'
-import login from '@/views/login/route'
+import home from '@/views/home/route';
+import spoken from '@/views/spoken/route';
+import video from '@/views/video/route';
+import login from '@/views/login/route';
+import register from '@/views/register/route';
+import user from '@/views/user/route';
 
-const result = [...home, ...about, ...category, ...login]
+const result = [...home, ...spoken, ...video, ...login, ...user, ...register];
 
-export default result
+export default result;

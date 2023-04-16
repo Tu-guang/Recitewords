@@ -19,14 +19,19 @@ export default {
           icon: 'home-o'
         }
         ,{
-          title: '效果',
-          link: '/category',
-          icon: 'fire-o'
+          title: '视频',
+          link: '/video',
+          icon: 'video-o'
         }
         ,{
-          title: '关于',
-          link: '/about',
-          icon: 'good-job-o'
+          title: '口语',
+          link: '/spoken',
+          icon: 'smile-o'
+        }
+        ,{
+          title: '我的',
+          link: '/user',
+          icon: 'user-o'
         }
       ],
       active: 0
@@ -38,11 +43,7 @@ export default {
   created() {},
   computed: {
     visible () {
-      if(this.$route.path!=='/login'){
-        return this.$route.meta.showFooter
-      }else{
-        return !this.$route.meta.showFooter
-      }
+      return this.$route.meta.showFooter
     }
   },
   mounted(){},

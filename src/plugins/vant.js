@@ -1,5 +1,5 @@
 // 按需全局引入 vant组件
-import Vue from 'vue'
+import Vue from 'vue';
 import {
   Button,
   Cell,
@@ -18,8 +18,15 @@ import {
   Col,
   Row,
   Icon,
-} from 'vant'
-;[
+  Search,
+  Popup,
+  Swipe,
+  SwipeItem,
+  PullRefresh,
+  Uploader,
+  Image,
+} from 'vant';
+[
   Button,
   Cell,
   CellGroup,
@@ -35,15 +42,22 @@ import {
   Col,
   Row,
   Icon,
+  Search,
+  Popup,
+  Swipe,
+  SwipeItem,
+  PullRefresh,
+  Uploader,
+  Image,
 ].forEach((e) => {
-  Vue.use(e)
-})
+  Vue.use(e);
+});
 
 Vue.use(Lazyload, {
   loading: require('../assets/icons/download.svg'),
   error: require('../assets/icons/imgerror.svg'),
   preLoad: 1,
-})
+});
 
 // vant 图片预览
-Vue.prototype.$imgPreview = ImagePreview
+Vue.prototype.$imgPreview = ImagePreview;

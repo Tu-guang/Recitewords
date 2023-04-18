@@ -31,4 +31,47 @@ const UserInfo = (data) => {
     data: data,
   });
 };
-export { Login, Register, Upload, UserInfo };
+const UpdateUserInfo = (data) => {
+  return apiAxios({
+    method: 'post',
+    url: '/api/UpdateUserInfo',
+    data: data,
+  });
+};
+const GetArticle = (data) => {
+  return apiAxios({
+    method: 'post',
+    url: '/api/getArticle',
+  });
+};
+const FindArticle = (data) => {
+  return apiAxios({
+    method: 'post',
+    url: '/api/findArticle',
+    data: data,
+  });
+};
+const GetVideo = (data) => {
+  return apiAxios({
+    method: 'post',
+    url: '/api/getVideo',
+  });
+};
+const FindVideo = (data) => {
+  return apiAxios({
+    method: 'post',
+    url: '/api/findVideo',
+    data: data,
+  });
+};
+export {
+  Login,
+  Register,
+  Upload,
+  UserInfo,
+  UpdateUserInfo,
+  GetArticle,
+  FindArticle,
+  GetVideo,
+  FindVideo,
+};

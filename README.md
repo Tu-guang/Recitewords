@@ -1,66 +1,23 @@
-<div align="center"><img src="https://img13.360buyimg.com/ddimg/jfs/t1/181324/6/13860/15049/60ec22b1E577f83d7/aa50109c7cb0f485.gif" width="100" /></div>
-
 基于 vue-cli4.0 + webpack 4 + vant ui + sass + rem+vw 适配方案+axios 封装，构建手机端模板脚手架
-
-<!-- csdn: [vue-cli-4 移动端脚手架模板vue-template-demo](https://blog.csdn.net/joy1793/article/details/110798660) -->
-csdn: <a href="https://blog.csdn.net/joy1793/article/details/110798660" target="_blank">vue-cli-4 移动端脚手架模板vue-template-demo</a>
-
-<!-- 查看 [demo](http://test2.huiche51.com/test/vuecli4) 建议手机端查看 -->
-查看 <a href="http://test2.huiche51.com/test/vuecli4" target="_blank">demo 建议手机端查看</a>
-
-### `default` 分支使用纯客户端渲染，beforehand分支使用预渲染，[快速查看](https://github.com/cnvoa/vue-template-demo/tree/beforehand)
 
 ### Node 版本要求
 
-`Vue CLI` 需要 Node.js 8.9 或更高版本 (推荐 8.11.0+)。你可以使用 [nvm](https://github.com/nvm-sh/nvm) 或
+`Vue CLI` 需要 Node.js 8.9 或更高版本 (推荐 测试用的 16+)。你可以使用 [nvm](https://github.com/nvm-sh/nvm) 或
 [nvm-windows](https://github.com/coreybutler/nvm-windows) 或 [n](https://github.com/tj/n) 在同一台电脑中管理多个 Node 版本。
 
-本示例基于 Node.js 14.15.0
+本示例基于 Node.js 16+
 
 ### 启动项目
 
-```bash
-
-git clone https://github.com/cnvoa/vue-template-demo.git
-
-cd vue-template-demo
+```
+cd Recitewords
 
 npm install
 
 npm run serve
 ```
 
-### 注意
-
-打包时若出现以下报错
-
-```shell
-⠙  Building for production...
-
- ERROR  Failed to compile with 2 errors                                                                                                                                                                                   下午2:50:23
-
- error  in ./src/assets/icons/download.svg
-
-Module build failed (from ./node_modules/image-webpack-loader/index.js):
-Error: Cannot find module 'imagemin-gifsicle'
-Require stack:
-- /Users/mac/project/debug/vue-template-demo/node_modules/image-webpack-loader/index.js
-```
-原因是npm安装 `image-webpack-loader` 插件时，安装不完整，缺失依赖。
-
-你需要先卸载 `image-webpack-loader`
-```shell
-npm uninstall image-webpack-loader
-or
-cnpm uninstall image-webpack-loader
-```
-然后通过cnpm安装 `image-webpack-loader`
-```shell
-cnpm i image-webpack-loader -D
-```
-
 <span id="top">目录</span>
-
 
 - [√ 配置多环境变量](#env)
 - [√ rem 适配方案](#rem)
@@ -101,8 +58,8 @@ cnpm i image-webpack-loader -D
 
 ##### 配置介绍
 
-&emsp;&emsp;以 `VUE_APP_` 开头的变量，在代码中可以通过 `process.env.VUE_APP_` 访问。  
-&emsp;&emsp;比如,`VUE_APP_ENV = 'development'` 通过`process.env.VUE_APP_ENV` 访问。  
+&emsp;&emsp;以 `VUE_APP_` 开头的变量，在代码中可以通过 `process.env.VUE_APP_` 访问。
+&emsp;&emsp;比如,`VUE_APP_ENV = 'development'` 通过`process.env.VUE_APP_ENV` 访问。
 &emsp;&emsp;除了 `VUE_APP_*` 变量之外，在你的应用代码中始终可用的还有两个特殊的变量`NODE_ENV` 和`BASE_URL`
 
 在项目根目录中新建`.env.*`
@@ -113,7 +70,6 @@ cnpm i image-webpack-loader -D
 NODE_ENV='development'
 # must start with VUE_APP_
 VUE_APP_ENV = 'development'
-
 ```
 
 - .env.staging 测试环境配置
@@ -127,24 +83,25 @@ VUE_APP_ENV = 'staging'
 - .env.production 正式环境配置
 
 ```bash
- NODE_ENV='production'
+NODE_ENV='production'
 # must start with VUE_APP_
 VUE_APP_ENV = 'production'
 ```
 
-这里我们并没有定义很多变量，只定义了基础的 VUE_APP_ENV `development` `staging` `production`  
+这里我们并没有定义很多变量，只定义了基础的 VUE_APP_ENV `development` `staging` `production`
 变量我们统一在 `src/config/env.*.js` 里进行管理。
 
-这里有个问题，既然这里有了根据不同环境设置变量的文件，为什么还要去 config 下新建三个对应的文件呢？  
+这里有个问题，既然这里有了根据不同环境设置变量的文件，为什么还要去 config 下新建三个对应的文件呢？
+
 - **修改起来方便，不需要重启项目，符合开发习惯。**
-- **代码中不会嵌入过多的process.env全局变量。**
+- **代码中不会嵌入过多的 process.env 全局变量。**
 
 config/index.js
 
 ```javascript
 // 根据环境引入不同配置 process.env.NODE_ENV
-const config = require('./env.' + process.env.VUE_APP_ENV)
-module.exports = config
+const config = require('./env.' + process.env.VUE_APP_ENV);
+module.exports = config;
 ```
 
 配置对应环境的变量，拿本地环境文件 `env.development.js` 举例，用户可以根据需求修改
@@ -152,20 +109,19 @@ module.exports = config
 ```javascript
 // 本地环境配置
 module.exports = {
-  title: 'vue-template-demo',
-  baseUrl: 'http://localhost:9527', // 项目地址
-  baseApi: 'https://test.xxx.com/api', // api请求地址
+  title: 'Recitewords',
+  baseUrl: 'http://localhost:8080', // 项目地址
   APPID: 'xxx',
-  APPSECRET: 'xxx'
-}
+  APPSECRET: 'xxx',
+};
 ```
 
 根据环境不同，变量就会不同了
 
 ```javascript
 // 根据环境不同引入不同baseApi地址
-import { baseApi } from '@/config'
-console.log(baseApi)
+import { baseApi } from '@/config';
+console.log(baseApi);
 ```
 
 [▲ 回顶部](#top)
@@ -186,43 +142,49 @@ Vant 中的样式默认使用`px`作为单位，如果需要使用`rem`单位，
 module.exports = {
   plugins: {
     autoprefixer: {
-      overrideBrowserslist: ['Android 4.1', 'iOS 7.1', 'Chrome > 31', 'ff > 31', 'ie >= 8']
+      overrideBrowserslist: [
+        'Android 4.1',
+        'iOS 7.1',
+        'Chrome > 31',
+        'ff > 31',
+        'ie >= 8',
+      ],
     },
     'postcss-pxtorem': {
       rootValue: 37.5,
-      propList: ['*']
-    }
-  }
-}
+      propList: ['*'],
+    },
+  },
+};
 ```
 
-更多详细信息： [vant](https://youzan.github.io/vant/#/zh-CN/advanced-usage) , [vant-zh](https://vant-contrib.gitee.io/vant/#/zh-CN/advanced-usage)
-
-**新手必看，老鸟跳过**
-
 很多小伙伴会问我，适配的问题。因为我们使用的是 Vant UI，所以必须根据 Vant UI 375 的设计规范走。
-- 要么我们的设计图也是用375px的宽度
-- 要么设计图用750px的宽度 使用工具转换成375px的宽度(比如**蓝湖**，**sass**)
 
-使用`postcss-pxtorem`，并将`rootValue`设置成`37.5`就是为了将Vant UI的px尺寸转成rem尺寸。
+- 要么我们的设计图也是用 375px 的宽度
+- 要么设计图用 750px 的宽度 使用工具转换成 375px 的宽度(比如**蓝湖**，**sass**)
 
-那如果我们自己的设计给出的图是750px宽度的呢？
-- 我们可以将`750px`宽度的设计图上传到蓝湖，通过蓝湖的换算功能得到`375px`宽度的尺寸。使用`postcss-pxtorem`，换算项目里面所有的px，得到rem。
-- 在sass中定义一个方法，接收一个`px`尺寸，然会返回一个`rem`单位的尺寸，在vw-layout.scss文件中已经定义了一个`px2rem`方法，调用如下
+使用`postcss-pxtorem`，并将`rootValue`设置成`37.5`就是为了将 Vant UI 的 px 尺寸转成 rem 尺寸。
+
+那如果我们自己的设计给出的图是 750px 宽度的呢？
+
+- 我们可以将`750px`宽度的设计图上传到蓝湖，通过蓝湖的换算功能得到`375px`宽度的尺寸。使用`postcss-pxtorem`，换算项目里面所有的 px，得到 rem。
+- 在 sass 中定义一个方法，接收一个`px`尺寸，然会返回一个`rem`单位的尺寸，在 vw-layout.scss 文件中已经定义了一个`px2rem`方法，调用如下
+
 ```css
-h2{
+h2 {
   margin: 10px 0 0 20px;
   font-size: px2rem(28);
   font-weight: 500;
   color: #666;
 }
 ```
-上面`font-size`通过sass的方法就被转换成了rem的单位尺寸，这个方法里面第一步就把750px宽度的尺寸转换成和vant UI同比例的尺寸然后直接转换成rem。
 
-这里sass方法`px2rem`把px直接转换成了rem，**postcss-pxtorem**插件就不能转换使用了`px2rem`方法的css，解决方案是在**PostCSS 配置**里面屏蔽src目录。
+上面`font-size`通过 sass 的方法就被转换成了 rem 的单位尺寸，这个方法里面第一步就把 750px 宽度的尺寸转换成和 vant UI 同比例的尺寸然后直接转换成 rem。
 
-如果采用了**sass** `px2rem` 方法，就相当于 `postcss-pxtorem`插件只转换vant UI，其余项目的css使用了sass转换，最后得到的结果都是一样的。
-当然你也可以在`px2rem` 方法中只计算px尺寸，rem转换全丢给`postcss-pxtorem`插件
+这里 sass 方法`px2rem`把 px 直接转换成了 rem，**postcss-pxtorem**插件就不能转换使用了`px2rem`方法的 css，解决方案是在**PostCSS 配置**里面屏蔽 src 目录。
+
+如果采用了**sass** `px2rem` 方法，就相当于 `postcss-pxtorem`插件只转换 vant UI，其余项目的 css 使用了 sass 转换，最后得到的结果都是一样的。
+当然你也可以在`px2rem` 方法中只计算 px 尺寸，rem 转换全丢给`postcss-pxtorem`插件
 
 **下面就大搞普及一下 rem**。
 
@@ -274,9 +236,7 @@ h2{
 #### 1.安装依赖
 
 ```bash
-
 npm install postcss-px-to-viewport -D
-
 ```
 
 #### 2.修改 .postcssrc.js
@@ -288,7 +248,13 @@ npm install postcss-px-to-viewport -D
 module.exports = {
   plugins: {
     autoprefixer: {
-      overrideBrowserslist: ['Android 4.1', 'iOS 7.1', 'Chrome > 31', 'ff > 31', 'ie >= 8']
+      overrideBrowserslist: [
+        'Android 4.1',
+        'iOS 7.1',
+        'Chrome > 31',
+        'ff > 31',
+        'ie >= 8',
+      ],
     },
     'postcss-px-to-viewport': {
       viewportWidth: 375, // 视窗的宽度，对应的是我们设计稿的宽度，一般是750
@@ -296,10 +262,10 @@ module.exports = {
       viewportUnit: 'vw', // 指定需要转换成的视窗单位，建议使用vw
       selectorBlackList: ['.ignore', '.hairlines'], // 指定不转换为视窗单位的类，可以自定义，可以无限添加,建议定义一至两个通用的类名
       minPixelValue: 1, // 小于或等于`1px`不转换为视窗单位，你也可以设置为你想要的值
-      mediaQuery: false // 允许在媒体查询中转换`px`
-    }
-  }
-}
+      mediaQuery: false, // 允许在媒体查询中转换`px`
+    },
+  },
+};
 ```
 
 #### 3.删除原来的 rem 相关代码
@@ -315,14 +281,16 @@ package.json 删除如下代码
 [▲ 回顶部](#top)
 
 ### <span id="vw-rem">✅ vm-rem 适配方案 </span>
-本项目采用这种方案，并且也推荐这种方案，vm-rem布局结合了vm布局和rem布局的优点，无任何额外依赖，只需要rem转换插件，无vw适配方案的缺点。
 
-#### 1.设置html的font-size
-在assets/css/vm-layout.scss中一个`root-font-size`混合方法，它给`html`设置了`font-size`，给`body`设置了最大最小宽度。在index.scss中引入，并在loader编译生效。
+本项目采用这种方案，并且也推荐这种方案，vm-rem 布局结合了 vm 布局和 rem 布局的优点，无任何额外依赖，只需要 rem 转换插件，无 vw 适配方案的缺点。
+
+#### 1.设置 html 的 font-size
+
+在 assets/css/vm-layout.scss 中一个`root-font-size`混合方法，它给`html`设置了`font-size`，给`body`设置了最大最小宽度。在 index.scss 中引入，并在 loader 编译生效。
 
 **这里 `html` 的 `font-size` 在 `iphone6` 下是 `37.5px`**
 
-#### 2.只需要书写css的尺寸就可以 参考 [√ rem 适配方案](#rem)
+#### 2.只需要书写 css 的尺寸就可以 参考 [√ rem 适配方案](#rem)
 
 #### 3.关于以上三种布局方式的详细区别，[推荐阅读](https://www.cnblogs.com/imwtr/p/9648233.html)
 
@@ -353,15 +321,15 @@ const plugins = [
     {
       libraryName: 'vant',
       libraryDirectory: 'es',
-      style: true
+      style: true,
     },
-    'vant'
-  ]
-]
+    'vant',
+  ],
+];
 module.exports = {
   presets: ['@vue/cli-plugin-babel/preset'],
-  plugins
-}
+  plugins,
+};
 ```
 
 #### 使用组件
@@ -370,12 +338,12 @@ module.exports = {
 
 ```javascript
 // 按需全局引入 vant组件
-import Vue from 'vue'
-import { Button, List, Cell, Tabbar, TabbarItem } from 'vant'
-Vue.use(Button)
-Vue.use(Cell)
-Vue.use(List)
-Vue.use(Tabbar).use(TabbarItem)
+import Vue from 'vue';
+import { Button, List, Cell, Tabbar, TabbarItem } from 'vant';
+Vue.use(Button);
+Vue.use(Cell);
+Vue.use(List);
+Vue.use(Tabbar).use(TabbarItem);
 ```
 
 [▲ 回顶部](#top)
@@ -459,8 +427,8 @@ vue-template-demo 所有全局样式都在 `@/src/assets/css` 目录下设置
 置`$cdn`通过变量形式引入 cdn 地址,这样向所有 Sass/Less 样式传入共享的全局变量：
 
 ```javascript
-const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV)
-const defaultSettings = require('./src/config/index.js')
+const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);
+const defaultSettings = require('./src/config/index.js');
 module.exports = {
   css: {
     extract: IS_PROD,
@@ -475,36 +443,36 @@ module.exports = {
                 @import "assets/css/variables.scss"; //也可以不引入这两个
                 @import "assets/css/index.scss"; //直接引入index.scss
                 $cdn: "${defaultSettings.$cdn}";
-                 `
-      }
-    }
-  }
-}
+                 `,
+      },
+    },
+  },
+};
 ```
 
 设置 js 中可以访问 `$cdn`,`.vue` 文件中使用`this.$cdn`访问
 
 ```javascript
 // 引入全局样式
-import '@/assets/css/index.scss' // 如果上面直接引入index.scss  这里可以省略
+import '@/assets/css/index.scss'; // 如果上面直接引入index.scss  这里可以省略
 
 // 设置 js中可以访问 $cdn
 // 引入cdn
-import { $cdn } from '@/config'
-Vue.prototype.$cdn = $cdn
+import { $cdn } from '@/config';
+Vue.prototype.$cdn = $cdn;
 ```
 
 在 css 和 js 使用 `$cdn`
 
 ```html
 <script>
-  console.log(this.$cdn)
+  console.log(this.$cdn);
 </script>
 <style lang="scss" scoped>
   .logo {
     width: 120px;
     height: 120px;
-    background: url($cdn + '/weapp/logo.png') center / contain no-repeat;
+    background: url($cdn+'/weapp/logo.png') center / contain no-repeat;
   }
 </style>
 ```
@@ -527,25 +495,25 @@ Vue.prototype.$cdn = $cdn
 `main.js` 引入
 
 ```javascript
-import Vue from 'vue'
-import App from './App.vue'
-import store from './store'
+import Vue from 'vue';
+import App from './App.vue';
+import store from './store';
 new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
-})
+  render: (h) => h(App),
+});
 ```
 
 使用
 
 ```html
 <script>
-  import { mapGetters, mapActions, mapMutations} from 'vuex'
+  import { mapGetters, mapActions, mapMutations } from 'vuex';
   export default {
     computed: {
-      ...mapGetters(['count'])
+      ...mapGetters(['count']),
     },
 
     methods: {
@@ -554,31 +522,30 @@ new Vue({
 
       doDispatch() {
         // 将 `this.longSet()` 映射为 `this.$store.dispatch('longSet')`
-        this.longSet({  
-          value: value
-        })
+        this.longSet({
+          value: value,
+        });
       },
 
       onchange(value) {
         // 将 `this.SYNC()` 映射为 `this.$store.commit('SYNC')`
         this.SYNC({
-          value: value
-        })
+          value: value,
+        });
 
-        console.log(this.count) // 使用count
-      }
-    }
-  }
+        console.log(this.count); // 使用count
+      },
+    },
+  };
 </script>
 ```
 
-vuex有以下注意几点需要注意
+vuex 有以下注意几点需要注意
 
 - 最好是用常量替代 `mutations` 事件类型 (使用 `mutations-type.js` 里面的常量)
-- 区分 `mutations `和 `actions` 的区别
+- 区分 `mutations`和 `actions` 的区别
 - 对于大型项目，应当拆分 store，将 store 分割成不同的模块
 - 对于不同页面场景，`vuex` 应当配合 `localStorage` 和 `sessionStorage` 使用
-
 
 [▲ 回顶部](#top)
 
@@ -591,34 +558,34 @@ vuex有以下注意几点需要注意
 前往:[vue.config.js 基础配置](#base)
 
 ```javascript
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-Vue.use(Router)
+Vue.use(Router);
 export const router = [
   {
     path: '/home',
     name: 'home',
     component: () => import('@/views/home/home.vue'), // 路由懒加载
-    meta: { 
-      title: "首页", // 导航条标题
+    meta: {
+      title: '首页', // 导航条标题
       depth: 0, // 页面深度
-      showFooter: true,  // 是否显示tabbar
+      showFooter: true, // 是否显示tabbar
       showHeader: false, // 是否显示navbar
       showHeaderBack: false, // 是否显示 back 返回按钮
-      login: false // 是否需要登录
-    }
-  }
-]
+      login: false, // 是否需要登录
+    },
+  },
+];
 const createRouter = () =>
   new Router({
     // mode: 'history', // 如果你是 history模式 需要配置 vue.config.js publicPath
     // base: '/app/',
     scrollBehavior: () => ({ y: 0 }),
-    routes: router
-  })
+    routes: router,
+  });
 
-export default createRouter()
+export default createRouter();
 ```
 
 其中 `/about` 路由中使用了不同的打包方式
@@ -632,10 +599,11 @@ export default createRouter()
 `http/request.js` 封装 axios ,开发者需要根据后台接口的状态码做出对应的反馈。
 
 - `service.interceptors.request.use` 里可以设置请求头，比如设置 `token`
-- `config.loading` 是在 api 文件夹下的api.js接口参数里设置
+- `config.loading` 是在 api 文件夹下的 api.js 接口参数里设置
 - `service.interceptors.response.use` 里可以对接口返回数据处理，比如 401 删除本地信息，重新登录
 
 axios 封装特色
+
 - 拦截了同一个接口同时多次请求，只成功发送一次
 - 弱网环境下，控制请求持续时长和重试次数
 
@@ -649,48 +617,45 @@ axios 封装特色
 - `method` 请求方法是 `get` 请求参数请传递 `params`
 - `method` 请求方法是 `post` 请求参数请传递 `data`
 - `data` 请求参数 `qs.stringify(params)` 是对数据系列化操作
-- `loading` 默认没有此字段，不显示接口请求动画， 交互中有些接口不需要让用户感知。有此字段则显示请求loading
+- `loading` 默认没有此字段，不显示接口请求动画， 交互中有些接口不需要让用户感知。有此字段则显示请求 loading
 
 ```javascript
-import qs from 'qs'
+import qs from 'qs';
 // axios
-import { apiAxios} from "./request.js";
+import { apiAxios } from './request.js';
 
 // 查询垃圾
 const trahs = (params) => {
   return apiAxios({
     method: 'get',
-    url: "api/lajifl",
+    url: 'api/lajifl',
     params,
-    message: '查询中'
-  })
-}
+    message: '查询中',
+  });
+};
 const slang = () => {
   return apiAxios({
     method: 'post',
     url: 'api/dujitang',
     data: qs.stringify({
-      apiKey: 'f9951161274ac6a4361ccb639f1106b2'
-    })
-  })
-}
-export {
-  trahs,
-  slang
-}
+      apiKey: 'f9951161274ac6a4361ccb639f1106b2',
+    }),
+  });
+};
+export { trahs, slang };
 ```
 
 #### 如何调用
 
 ```javascript
 // 请求接口
-import { trahs } from '@/api/user.js'
+import { trahs } from '@/api/user.js';
 
 trahs({
-  m: '大力'
+  m: '大力',
 }).then(() => {
   // console.log(res);
-})
+});
 ```
 
 [▲ 回顶部](#top)
@@ -706,17 +671,18 @@ export const router = [
     path: '/home',
     name: 'home',
     component: () => import('@/views/home/home.vue'), // 路由懒加载
-    meta: { 
-      title: "首页", 
+    meta: {
+      title: '首页',
       depth: 0, // 页面深度 转场动画使用
-      showFooter: true,  
-      showHeader: false, 
-      showHeaderBack: false, 
-      login: false 
-    }
-  }
-]
+      showFooter: true,
+      showHeader: false,
+      showHeaderBack: false,
+      login: false,
+    },
+  },
+];
 ```
+
 ```vue
 // App.vue
 <template>
@@ -766,7 +732,7 @@ publicPath: '/app/',
 ```
 
 ```javascript
-const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV)
+const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);
 
 module.exports = {
   publicPath: './', // 部署应用包时的基本 URL。 vue-router hash 模式使用
@@ -776,16 +742,16 @@ module.exports = {
   lintOnSave: !IS_PROD,
   productionSourceMap: false, // 如果你不需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建。
   devServer: {
-    port: 9527, // 端口号
+    port: 8080, // 端口号
     open: true, // 启动后打开浏览器
     overlay: {
       //  当出现编译器错误或警告时，在浏览器中显示全屏覆盖层
       warnings: false,
-      errors: true
-    }
+      errors: true,
+    },
     // ...
-  }
-}
+  },
+};
 ```
 
 [▲ 回顶部](#top)
@@ -793,26 +759,27 @@ module.exports = {
 ### <span id="alias">✅ 配置 alias 别名 </span>
 
 ```javascript
-const path = require('path')
-const resolve = dir => path.join(__dirname, dir)
-const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV)
+const path = require('path');
+const resolve = (dir) => path.join(__dirname, dir);
+const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);
 
 module.exports = {
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     // 添加别名
     config.resolve.alias
       .set('@', resolve('src'))
       .set('assets', resolve('src/assets'))
       .set('api', resolve('src/api'))
       .set('views', resolve('src/views'))
-      .set('components', resolve('src/components'))
-  }
-}
+      .set('components', resolve('src/components'));
+  },
+};
 ```
 
 [▲ 回顶部](#top)
 
 ### <span id="proxy">✅ 配置 proxy 跨域 </span>
+
 **本项目默认开启本地开发跨域**
 
 如果你的项目本地开发需要跨域设置，你需要配置 `vue.config.js` 文件的 `proxy` 并且写入相应参数
@@ -824,12 +791,12 @@ module.exports = {
   devServer: {
     // ....
     proxy: {
-      '/apis': { 
-        target: 'https://api.muxiaoguo.cn',
+      '/apis': {
+        target: 'http://localhost:8080',
         changeOrigin: true, // 默认false，是否需要改变原始主机头为目标URL
         pathRewrite: {
-          '^/apis': ''
-        }
+          '^/apis': '/api/',
+        },
       }, // 可以跨域多个
       // '/test': {
       //   target: 'https://api.xxxx.cn',
@@ -838,9 +805,9 @@ module.exports = {
       //     '^/test': ''
       //   }
       // }
-    }
-  }
-}
+    },
+  },
+};
 ```
 
 使用 例如: `src/http/api.js`
@@ -849,35 +816,37 @@ module.exports = {
 const trahs = (params) => {
   return apiAxios({
     method: 'get',
-    url: "api/lajifl",
+    url: 'api/lajifl',
     params,
-    loading: '查询中'
-  })
-}
+    loading: '查询中',
+  });
+};
 ```
-这里的url字段还会拼接上 `request.js` 里面的baseURL字段
-**有关proxy 跨域的详细配置和解释 请阅读 [详解 vue/cli中 proxy 跨域](https://blog.csdn.net/joy1793/article/details/109677154)**
+
+这里的 url 字段还会拼接上 `request.js` 里面的 baseURL 字段
+**有关 proxy 跨域的详细配置和解释 请阅读 [详解 vue/cli 中 proxy 跨域](https://blog.csdn.net/joy1793/article/details/109677154)**
 
 [▲ 回顶部](#top)
 
 ### <span id="bundle">✅ 配置 打包分析 </span>
 
 ```javascript
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 
 module.exports = {
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     if (IS_PROD) {
       // 修改打包分析生成html路径
       config.plugin('webpack-report').use(BundleAnalyzerPlugin, [
         {
           analyzerMode: 'static',
           reportFilename: 'report/report.html',
-        }
-      ])
+        },
+      ]);
     }
-  }
-}
+  },
+};
 ```
 
 ```bash
@@ -899,23 +868,23 @@ npm run build
 暂时还没有研究放到自己的 cdn 服务器上。
 
 ```javascript
-const defaultSettings = require('./src/config/index.js')
-const name = defaultSettings.title || 'vue mobile template'
-const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV)
+const defaultSettings = require('./src/config/index.js');
+const name = defaultSettings.title || 'vue mobile template';
+const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);
 
 // externals
 const externals = {
   vue: 'Vue',
   'vue-router': 'VueRouter',
   vuex: 'Vuex',
-  axios: 'axios'
-}
+  axios: 'axios',
+};
 // CDN外链，会插入到index.html中
 const cdn = {
   // 开发环境
   dev: {
     css: [],
-    js: []
+    js: [],
   },
   // 生产环境
   build: {
@@ -924,35 +893,35 @@ const cdn = {
       'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js',
       'https://cdn.jsdelivr.net/npm/vue-router@3.1.5/dist/vue-router.min.js',
       'https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js',
-      'https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js'
-    ]
-  }
-}
+      'https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js',
+    ],
+  },
+};
 module.exports = {
-  configureWebpack: config => {
-    config.name = name
+  configureWebpack: (config) => {
+    config.name = name;
     // 为生产环境修改配置...
     if (IS_PROD) {
       // externals
-      config.externals = externals
+      config.externals = externals;
     }
   },
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     /**
      * 添加CDN参数到htmlWebpackPlugin配置中
      */
-    config.plugin('html').tap(args => {
-      args[0].cdn = cdn.build
-      return args
-    })
-  }
-}
+    config.plugin('html').tap((args) => {
+      args[0].cdn = cdn.build;
+      return args;
+    });
+  },
+};
 ```
 
 在 public/index.html 中添加
 
 ```javascript
-    <!-- 使用CDN的CSS文件 -->
+<!-- 使用CDN的CSS文件 -->
     <% for (var i in
       htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.css) { %>
       <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" rel="preload" as="style" />
@@ -965,7 +934,7 @@ module.exports = {
     <% } %>
 ```
 
-**请确定是否使用cdn，如果不使用请注释以上全部代码**
+**请确定是否使用 cdn，如果不使用请注释以上全部代码**
 
 [▲ 回顶部](#top)
 
@@ -981,27 +950,27 @@ npm i -D babel-plugin-transform-remove-console
 
 ```javascript
 // 获取 VUE_APP_ENV 非 NODE_ENV，测试环境依然 console
-const IS_PROD = ['production', 'prod'].includes(process.env.VUE_APP_ENV)
+const IS_PROD = ['production', 'prod'].includes(process.env.VUE_APP_ENV);
 const plugins = [
   [
     'import',
     {
       libraryName: 'vant',
       libraryDirectory: 'es',
-      style: true
+      style: true,
     },
-    'vant'
-  ]
-]
+    'vant',
+  ],
+];
 // 去除 console.log
 if (IS_PROD) {
-  plugins.push('transform-remove-console')
+  plugins.push('transform-remove-console');
 }
 
 module.exports = {
   presets: [['@vue/cli-plugin-babel/preset', { useBuiltIns: 'entry' }]],
-  plugins
-}
+  plugins,
+};
 ```
 
 [▲ 回顶部](#top)
@@ -1010,61 +979,66 @@ module.exports = {
 
 注意使用`npm`安装安装 `image-webpack-loader` 的时候可能**安装不完整**，依赖缺失。请先卸载 `image-webpack-loader` ，然后使用 `cnpm` 试试
 
-注意在某些mac或者linux上 `image-webpack-loader`会引起报错
+注意在某些 mac 或者 linux 上 `image-webpack-loader`会引起报错
 
-解决办法安装 `libpng` 库,在github issue https://github.com/tcoopman/image-webpack-loader/issues/49可查看
+解决办法安装 `libpng` 库,在 github issue https://github.com/tcoopman/image-webpack-loader/issues/49可查看
 
 `libpng` 安装代码
 mac:
+
 ```shell
 brew install libpng
 ```
 
 ubuntu:
+
 ```shell
 apt-get install libpng
 ```
 
 **安装**image-webpack-loader
+
 ```javascript
 npm i -D image-webpack-loader
 ```
+
 ```javascript
-chainWebpack: config => {
-// 压缩图片
+chainWebpack: (config) => {
+  // 压缩图片
   if (IS_PROD) {
     config.module
-      .rule("images")
-      .use("image-webpack-loader")
-      .loader("image-webpack-loader")
+      .rule('images')
+      .use('image-webpack-loader')
+      .loader('image-webpack-loader')
       .options({
         mozjpeg: { progressive: true, quality: 65 },
         optipng: { enabled: false },
         pngquant: { quality: [0.65, 0.9], speed: 4 },
-        gifsicle: { interlaced: true }
+        gifsicle: { interlaced: true },
         // webp: { quality: 75 }
       });
   }
-}
+};
 ```
+
 [▲ 回顶部](#top)
 
 ### <span id="chunks">✅ splitChunks 单独打包第三方模块</span>
 
 ```javascript
 module.exports = {
-  chainWebpack: config => {
-    config.when(IS_PROD, config => {
+  chainWebpack: (config) => {
+    config.when(IS_PROD, (config) => {
       config
         .plugin('ScriptExtHtmlWebpackPlugin')
         .after('html')
         .use('script-ext-html-webpack-plugin', [
           {
             // 将 runtime 作为内联引入不单独存在
-            inline: /runtime\..*\.js$/
-          }
+            inline: /runtime\..*\.js$/,
+          },
         ])
-        .end()
+        .end();
       config.optimization.splitChunks({
         chunks: 'all',
         cacheGroups: {
@@ -1074,25 +1048,25 @@ module.exports = {
             test: resolve('src/components'),
             minChunks: 3, //  被至少用三次以上打包分离
             priority: 5, // 优先级
-            reuseExistingChunk: true // 表示是否使用已有的 chunk，如果为 true 则表示如果当前的 chunk 包含的模块已经被抽取出去了，那么将不会重新生成新的。
+            reuseExistingChunk: true, // 表示是否使用已有的 chunk，如果为 true 则表示如果当前的 chunk 包含的模块已经被抽取出去了，那么将不会重新生成新的。
           },
           node_vendors: {
             name: 'chunk-libs',
             chunks: 'initial', // 只打包初始时依赖的第三方
             test: /[\\/]node_modules[\\/]/,
-            priority: 10
+            priority: 10,
           },
           vantUI: {
             name: 'chunk-vantUI', // 单独将 vantUI 拆包
             priority: 20, // 数字大权重到，满足多个 cacheGroups 的条件时候分到权重高的
-            test: /[\\/]node_modules[\\/]_?vant(.*)/
-          }
-        }
-      })
-      config.optimization.runtimeChunk('single')
-    })
-  }
-}
+            test: /[\\/]node_modules[\\/]_?vant(.*)/,
+          },
+        },
+      });
+      config.optimization.runtimeChunk('single');
+    });
+  },
+};
 ```
 
 [▲ 回顶部](#top)
@@ -1113,19 +1087,21 @@ npm i --save core-js regenerator-runtime
 ```javascript
 // 兼容 IE
 // https://github.com/zloirock/core-js/blob/master/docs/2019-03-19-core-js-3-babel-and-a-look-into-the-future.md#babelpolyfill
-import 'core-js/stable'
-import 'regenerator-runtime/runtime'
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 ```
 
 配置 `babel.config.js`
 
 ```javascript
-const plugins = []
+const plugins = [];
 
 module.exports = {
-  presets: [['@vue/cli-plugin-babel/preset', { useBuiltIns: 'usage', corejs: 3 }]],
-  plugins
-}
+  presets: [
+    ['@vue/cli-plugin-babel/preset', { useBuiltIns: 'usage', corejs: 3 }],
+  ],
+  plugins,
+};
 ```
 
 [▲ 回顶部](#top)
@@ -1134,31 +1110,8 @@ module.exports = {
 
 VScode （版本 1.51.1）安装 `eslint` `prettier` `vetur` 插件 `.vue` 文件使用 vetur 进行格式化，其他使用`prettier`,
 
-在文件 `.eslintrc.js` 里简单配置eslint规则
+在文件 `.eslintrc.js` 里简单配置 eslint 规则
 
-在vs code中有插件配合 `pettier` `Eslint`进行代码格式化检查。这里不在赘述，也没有配置，请google和百度。
+在 vs code 中有插件配合 `pettier` `Eslint`进行代码格式化检查。这里不在赘述，也没有配置，请 google 和百度。
 
 [▲ 回顶部](#top)
-
-# 鸣谢 ​
-
-[vue-h5-template](https://github.com/sunniejs/vue-h5-template)  
-[vue-cli4-config](https://github.com/staven630/vue-cli4-config)  
-[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
-
-# 关于我
-
-扫描添加下方的微信并备注 github 加交流群，交流学习，及时获取代码最新动态。
-
-<div>
-  <span>
-    <img src="https://www.pstldz.com/uploads/zhuoxiang.png" width="256" style="display:block;">
-    <div>微信群</div>
-  </span>
-  <span>
-    <img src="https://img11.360buyimg.com/ddimg/jfs/t1/174512/40/19593/49842/60ec28deE8b5259d8/cba591b3f8be23b3.jpg" width="256" style="display:block;">
-    <div>author</div>
-  </span>
-</div>
- 
-如果对你有帮助送我一颗小星星（づ￣3￣）づ╭❤～

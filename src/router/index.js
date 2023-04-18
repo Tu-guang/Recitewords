@@ -57,7 +57,6 @@ router.beforeEach((to, from, next) => {
       next({ ...to });
       return;
     } else {
-      console.log(to.meta.login, 1);
       // 没有登录信息的时候 判断push的页面是否需要登录
       // 守卫需要登录的页面
       if (to.meta.login) {

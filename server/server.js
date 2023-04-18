@@ -6,6 +6,11 @@ const login = require('./router/login');
 const register = require('./router/register');
 const uploads = require('./router/upload');
 const userInfo = require('./router/userInfo');
+const getArticle = require('./router/article');
+const findArticle = require('./router/findarticle');
+const getVideo = require('./router/video');
+const findVideo = require('./router/findvideo');
+const updateUserInfo = require('./router/updateUserInfo');
 //extended:false 表示使用系统模块querystring来处理 将字符串转化为对象
 app.use(
   bodyparser.urlencoded({
@@ -57,6 +62,11 @@ app.get('/', function(req, res) {
 app.use('/api', login);
 app.use('/api', register);
 app.use('/api', userInfo);
+app.use('/api', getArticle);
+app.use('/api', findArticle);
+app.use('/api', getVideo);
+app.use('/api', findVideo);
+app.use('/api', updateUserInfo);
 //上传图片
 app.use('/api', upload.single('file'), uploads);
 let server = app.listen(8081, function() {

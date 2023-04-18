@@ -1,152 +1,16 @@
 <template>
   <div class="home">
     <van-nav-bar title="首页" />
-    <van-search value="" placeholder="请输入搜索关键词" />
-    <!-- <div class="p-2">
-      <div class="card1">
-        <div class="top">
-          <div class="text">
-            <h3>How to memorize English words efficiently</h3>
-            <p>如何高效背英语单词</p>
-          </div>
-          <div class="pic">
-            <img src="../../assets/image/1.png" alt="" />
-            <em class="tip">2.0万</em>
-          </div>
-        </div>
-        <div class="bottom">初阶（高级） 两天前</div>
-      </div>
-      <div class="card1">
-        <div class="top">
-          <div class="text">
-            <h3>Never say die.never give up</h3>
-            <p>永不言败,永不放弃</p>
-          </div>
-          <div class="pic">
-            <img src="../../assets/image/2.jpeg" alt="" />
-            <em class="tip">3.0万</em>
-          </div>
-        </div>
-        <div class="bottom">初阶（高级） 两天前</div>
-      </div>
-      <div class="card1">
-        <div class="top">
-          <div class="text">
-            <h3>Show yourself and reach new heightsl</h3>
-            <p>展现自我，争创新高</p>
-          </div>
-          <div class="pic">
-            <img src="../../assets/image/3.jpeg" alt="" />
-            <em class="tip">3.0万</em>
-          </div>
-        </div>
-        <div class="bottom">初阶（高级） 两天前</div>
-      </div>
-      <div class="card1">
-        <div class="top">
-          <div class="text">
-            <h3>Where there is a will,there is a way</h3>
-            <p>有志者，事竟成</p>
-          </div>
-          <div class="pic">
-            <img src="../../assets/image/4.jpeg" alt="" />
-            <em class="tip">3.0万</em>
-          </div>
-        </div>
-        <div class="bottom">初阶（高级） 两天前</div>
-      </div>
-      <div class="card1">
-        <div class="top">
-          <div class="text">
-            <h3>Sow today,reap tomorrow</h3>
-            <p>耕耘今天，收获明天</p>
-          </div>
-          <div class="pic">
-            <img src="../../assets/image/5.jpeg" alt="" />
-            <em class="tip">3.0万</em>
-          </div>
-        </div>
-        <div class="bottom">初阶（高级） 两天前</div>
-      </div>
-      <div class="card1">
-        <div class="top">
-          <div class="text">
-            <h3>Don't be shy,just have a try</h3>
-            <p>不要胆怯，勇于尝试</p>
-          </div>
-          <div class="pic">
-            <img src="../../assets/image/6.jpeg" alt="" />
-            <em class="tip">3.0万</em>
-          </div>
-        </div>
-        <div class="bottom">初阶（高级） 两天前</div>
-      </div>
-      <div class="card1">
-        <div class="top">
-          <div class="text">
-            <h3>Love dose not close,and your long</h3>
-            <p>爱不贵亲密，而贵长久</p>
-          </div>
-          <div class="pic">
-            <img src="../../assets/image/1.png" alt="" />
-            <em class="tip">3.0万</em>
-          </div>
-        </div>
-        <div class="bottom">初阶（高级） 两天前</div>
-      </div>
-      <div class="card1">
-        <div class="top">
-          <div class="text">
-            <h3>Life is a fiower of which love is the honey</h3>
-            <p>人生是花朵，爱情如甜蜜</p>
-          </div>
-          <div class="pic">
-            <img src="../../assets/image/2.jpeg" alt="" />
-            <em class="tip">3.0万</em>
-          </div>
-        </div>
-        <div class="bottom">初阶（高级） 两天前</div>
-      </div>
-      <div class="card1">
-        <div class="top">
-          <div class="text">
-            <h3>Life is a happy day fot a wise man</h3>
-            <p>生活只是聪明人的喜庆日</p>
-          </div>
-          <div class="pic">
-            <img src="../../assets/image/3.jpeg" alt="" />
-            <em class="tip">3.0万</em>
-          </div>
-        </div>
-        <div class="bottom">初阶（高级） 两天前</div>
-      </div>
-      <div class="card1">
-        <div class="top">
-          <div class="text">
-            <h3>One love to drive out another love</h3>
-            <p>一个爱情驱散另一个爱情</p>
-          </div>
-          <div class="pic">
-            <img src="../../assets/image/4.jpeg" alt="" />
-            <em class="tip">3.0万</em>
-          </div>
-        </div>
-        <div class="bottom">初阶（高级） 两天前</div>
-      </div>
-      <div class="card1">
-        <div class="top">
-          <div class="text">
-            <h3>Life is a maze,and love is a mystery</h3>
-            <p>生活是座迷宫，爱情是个迷</p>
-          </div>
-          <div class="pic">
-            <img src="../../assets/image/5.jpeg" alt="" />
-            <em class="tip">3.0万</em>
-          </div>
-        </div>
-        <div class="bottom">初阶（高级） 两天前</div>
-      </div>
-    </div> -->
+    <van-search
+      v-model="value"
+      placeholder="请输入搜索关键词"
+      @search="onSearch"
+      :clearable="true"
+    >
+      <template #action>
+        <div @click="onSearch">搜索</div>
+      </template></van-search
+    >
 
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <div style="margin-bottom: 66px">
@@ -156,7 +20,7 @@
               <div class="content">
                 <div class="title">{{ item.title }}</div>
                 <div style="display: flex">
-                  <div>
+                  <div style="flex-shrink: 0; margin-right: auto">
                     <div class="author">
                       <van-image
                         round
@@ -164,9 +28,7 @@
                         height="20"
                         :src="item.avatar"
                       />
-                      <span class="author-name">{{
-                        item.author.nickname
-                      }}</span>
+                      <span class="author-name">{{ item.nickname }}</span>
                       <van-icon
                         color="#06f"
                         style="padding-left: 7px"
@@ -174,10 +36,13 @@
                       />
                     </div>
                     <div class="article">
-                      {{ item.article.content }}
+                      {{ item.content }}
                     </div>
                   </div>
-                  <div class="article-poster">
+                  <div
+                    class="article-poster"
+                    style="display: flex; justify-content: flex-end"
+                  >
                     <van-image
                       width="100px"
                       height="63px"
@@ -206,7 +71,7 @@
               <div class="content">
                 <div class="title">{{ item.title }}</div>
                 <div style="display: flex">
-                  <div>
+                  <div style="flex-shrink: 0; margin-right: auto">
                     <div class="author">
                       <van-image
                         round
@@ -248,6 +113,7 @@
 </template>
 
 <script>
+import { GetArticle, FindArticle } from "@/plugins/api";
 export default {
   name: "Home",
   data() {
@@ -258,14 +124,33 @@ export default {
       form_list: [{}],
     };
   },
-  mounted() {},
+  mounted() {
+    this.GetAllArticle();
+  },
   methods: {
     onRefresh() {
       setTimeout(() => {
         this.$toast("刷新成功");
         this.isLoading = false;
-        this.count++;
+        this.GetAllArticle();
       }, 1000);
+    },
+    onSearch() {
+      FindArticle({ title: this.value }).then((res) => {
+        console.log(res);
+        if (res.code === 200) {
+          this.form_list = res.data;
+          this.$toast.success("搜索成功");
+        } else {
+          this.$toast.fail("请输入搜索内容");
+        }
+      });
+    },
+    GetAllArticle() {
+      GetArticle().then((res) => {
+        console.log(res);
+        this.form_list = res.data;
+      });
     },
   },
 };
@@ -304,6 +189,8 @@ home {
   border-radius: 5px;
   margin: 15px 0 0 10px;
   object-fit: fill;
+  margin-right: 10px;
+  float: right;
 }
 .item {
   width: 100%;
